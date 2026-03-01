@@ -1,0 +1,86 @@
+superstore_raw:
+-------------------------
+CREATE TABLE superstore_raw (
+    `Row ID` INT,
+    `Order ID` VARCHAR(50),
+    `Order Date` DATE,
+    `Ship Date` DATE,
+    `Ship Mode` VARCHAR(50),
+    `Customer ID` VARCHAR(50),
+    `Customer Name` VARCHAR(100),
+    `Segment` VARCHAR(50),
+    `Country` VARCHAR(50),
+    `City` VARCHAR(50),
+    `State` VARCHAR(50),
+    `Postal Code` VARCHAR(20),
+    `Region` VARCHAR(50),
+    `Product ID` VARCHAR(50),
+    `Category` VARCHAR(50),
+    `Sub-Category` VARCHAR(50),
+    `Product Name` VARCHAR(255),
+    `Sales` DECIMAL(10,2),
+    `Quantity` INT,
+    `Discount` DECIMAL(4,2),
+    `Profit` DECIMAL(10,2)
+);
+
+sales_clean:
+---------------------------------
+CREATE TABLE sales_clean (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    order_id VARCHAR(50) UNIQUE,
+    order_date DATE,
+    year INT,
+    month INT,
+    customer_name VARCHAR(100),
+    city VARCHAR(100),
+    state VARCHAR(100),
+    category VARCHAR(50),
+    sales DECIMAL(10,2),
+    profit DECIMAL(10,2),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);order_id PRIMARY
+
+SQL for Raw to clean:
+-----------------------------------
+INSERT INTO sales_clean (
+    order_id,
+    order_date,
+    year,
+    month,
+    customer_name,
+    city,
+    state,
+    category,
+    sales,
+    profit
+)
+SELECT
+    `Order ID`,
+    `Order Date`,
+    YEAR(`Order Date`),
+    MONTH(`Order Date`),
+    `Customer Name`,
+    `City`,
+    `State`,
+    `Category`,
+    `Sales`,
+    `Profit`
+FROM superstore_raw;
+
+Remove UNIQUE from order id
+----------------------------------
+ALTER TABLE sales_clean
+DROP INDEX order_id;
+
+
+
+
+
+
+
+
+
+
+
+
