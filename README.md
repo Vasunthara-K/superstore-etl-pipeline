@@ -39,6 +39,7 @@ Clean Analytics Table (sales_clean)
 sales_etl_project/
 │
 ├── etl.py
+|__ sql
 ├── sales.csv
 └── documentation
 ```
